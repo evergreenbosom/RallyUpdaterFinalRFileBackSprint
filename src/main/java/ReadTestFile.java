@@ -101,7 +101,7 @@ public class ReadTestFile {
                     throw new Exception("Did not find test result value in file " + resultFileName);
                 }
 
-                JsonObject tcRef = queryRequest(workspaceRef, projectRef, "TestCase", tcId);
+                JsonObject tcRef = queryRequest(workspaceRef, resultFileName, projectRef, "TestCase", tcId);
                 //System.out.println("::::" + tcRef.get("_ref").getAsString());
                 // System.out.println("filename:" + resultFileName);
                 if(tcRef != null) {
@@ -244,7 +244,7 @@ public class ReadTestFile {
     }
 
     // type: Iteration,TestCase, TestSet,
-    public static JsonObject queryRequest(String workspaceRef, String projectRef, String type, String id) {
+    public static JsonObject queryRequest(String workspaceRef, String filename, String projectRef, String type, String id) {
         QueryRequest request = new QueryRequest(type);
         request.setFetch(new Fetch("FormattedID", "Name", "TestSets"));
         request.setWorkspace(workspaceRef);
@@ -254,7 +254,7 @@ public class ReadTestFile {
         try {
             response = restApi.query(request);
             if (response.getTotalResultCount() == 0) {
-                System.out.println(">>> Cannot find tag: " + id);
+                System.out.println(">>> Cannot find tag: " + id +" From File Name:  " + filename );
                 return null;
             }
         } catch (IOException e) {
