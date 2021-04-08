@@ -36,6 +36,9 @@ public class ReadTestFile {
     static String projectName = "Marconi";
     static String testEnv = "";
 
+    static String fromDate = "2021-02-17";
+    static String toDate = "2021-03-02";
+
     public static void main(String[] args) throws Exception {
         System.out.println();
 
@@ -189,8 +192,8 @@ public class ReadTestFile {
         String pattern = "yyyy-MM-dd";
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
         String date = simpleDateFormat.format(new Date());
-        currentIterationRequest
-                .setQueryFilter(new QueryFilter("StartDate", "<=", date).and(new QueryFilter("EndDate", ">=", date)));
+                currentIterationRequest
+                .setQueryFilter(new QueryFilter("StartDate", "<=", fromDate).and(new QueryFilter("EndDate", ">=", toDate)));
 
         currentIterationRequest.setWorkspace(workspaceRef);
         currentIterationRequest.setProject(projectRef);
